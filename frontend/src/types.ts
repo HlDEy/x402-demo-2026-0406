@@ -1,4 +1,4 @@
-export type Urgency = 'low' | 'medium' | 'high';
+export type Urgency = 'low' | 'medium' | 'high' | 'critical';
 
 export interface AgentRequest {
   location: string;

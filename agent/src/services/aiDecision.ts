@@ -4,7 +4,7 @@ const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 export interface DecisionInput {
   weather: string;
-  urgency: 'low' | 'medium' | 'high';
+  urgency: 'low' | 'medium' | 'high' | 'critical';
   price: number;
   budget: number;
 }
@@ -26,9 +26,10 @@ export async function decideWithClaude(input: DecisionInput): Promise<DecisionOu
 - 予算上限：${budget} USDC
 
 判断基準：
+- 緊急度が「critical（最重要）」の場合は天気・価格・予算に関わらず必ず購入する
 - 快晴・晴れで緊急度が低い場合、無料データで十分
 - 緊急度が高い場合、プレミアムデータは価値がある
-- 予算を絶対に超えてはいけない
+- 予算を絶対に超えてはいけない（ただしcriticalの場合は例外）
 - 雨天かつ緊急度が中・高の場合は購入する
 - 嵐・竜巻の場合は緊急度に関わらず必ず購入する（安全確保のため詳細情報が必須）
 
