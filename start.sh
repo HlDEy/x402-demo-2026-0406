@@ -3,7 +3,7 @@
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "================================================"
-echo "  x402 AI Agent Demo v2 (Provider / Agent 分離)"
+echo "  x402 AI Agent Demo (Provider / Agent 分離)"
 echo "================================================"
 echo ""
 
