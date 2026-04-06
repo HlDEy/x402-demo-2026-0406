@@ -59,7 +59,6 @@ cp provider/.env.example provider/.env
 | 変数 | 内容 |
 |------|------|
 | `EVM_ADDRESS` | 受取ウォレットのアドレス（0x...） |
-| `ANTHROPIC_API_KEY` | Anthropic APIキー①（将来の拡張用） |
 
 **Agent側** (`agent/.env`)：
 
@@ -70,7 +69,7 @@ cp agent/.env.example agent/.env
 | 変数 | 内容 |
 |------|------|
 | `WALLET_PRIVATE_KEY` | 支払いウォレットの秘密鍵（Base Sepolia専用） |
-| `ANTHROPIC_API_KEY` | Anthropic APIキー②（Claude判断用） |
+| `ANTHROPIC_API_KEY` | Anthropic APIキー（Claude判断用） |
 
 ### 4. テスト用トークンの取得（初回のみ）
 
