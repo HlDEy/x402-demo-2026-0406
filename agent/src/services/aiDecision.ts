@@ -17,8 +17,8 @@ export interface DecisionOutput {
 export async function decideWithClaude(input: DecisionInput): Promise<DecisionOutput> {
   const { weather, urgency, price, budget } = input;
 
-  const prompt = `あなたは自律的に判断するAIエージェントです。
-以下の状況でプレミアム天気データを購入すべきか、あなた自身の判断で決めてください。
+  const prompt = `あなたは天気データの購入を判断するAIエージェントです。
+以下の状況でプレミアム天気データを購入すべきか判断してください。
 
 現在の情報：
 - 無料天気データ：${weather}
@@ -26,10 +26,18 @@ export async function decideWithClaude(input: DecisionInput): Promise<DecisionOu
 - プレミアムデータの価格：${price} USDC
 - 予算上限：${budget} USDC
 
-条件：予算を超える支払いはできません。それ以外はあなたの判断に委ねます。
+判断基準：
+- stormy・tornado などの異常気象は緊急度に関わらず購入する
+- rainy は緊急度が medium 以上なら購入を検討する（low なら不要）
+- cloudy・sunny・clear は緊急度が high 以上でないと購入不要
+- 予算を超える支払いは絶対にしない
+
+注意：無料データの情報量について言及しないこと。天気の深刻度と緊急度のみを理由にすること。
+
+理由は「〜と判断しました」「〜のため購入します」のような、AIエージェントとして自然な日本語の一文で書いてください。
 
 JSONのみで回答し、他のテキストは一切含めないこと：
-{"buy": true, "reason": "日本語で簡潔な理由"}`;
+{"buy": true, "reason": "ここに理由"}`;
 
   const message = await anthropic.messages.create({
     model: 'claude-haiku-4-5-20251001',
