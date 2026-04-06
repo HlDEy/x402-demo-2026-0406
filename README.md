@@ -65,7 +65,7 @@ cp agent/.env.example agent/.env
 `WALLET_PRIVATE_KEY` のアドレスに対して：
 
 1. テストETH → https://www.alchemy.com/faucets/base-sepolia
-2. テストUSDC → https://faucet.circle.com（Base Sepoliaを選択）
+2. テストUSDC → [https://faucet.circle.com](https://faucet.circle.com)（Base Sepoliaを選択）
 
 ### 5. 起動
 
