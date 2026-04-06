@@ -17,21 +17,16 @@ export interface DecisionOutput {
 export async function decideWithClaude(input: DecisionInput): Promise<DecisionOutput> {
   const { weather, urgency, price, budget } = input;
 
-  const prompt = `あなたはプレミアム天気データを購入するか判断するAIエージェントです。
+  const prompt = `あなたは自律的に判断するAIエージェントです。
+以下の状況でプレミアム天気データを購入すべきか、あなた自身の判断で決めてください。
 
 現在の情報：
 - 無料天気データ：${weather}
-- 緊急度：${urgency}
+- 緊急度：${urgency}（low / medium / high / critical）
 - プレミアムデータの価格：${price} USDC
 - 予算上限：${budget} USDC
 
-判断基準：
-- 予算を絶対に超えてはいけない（どの緊急度でも例外なし）
-- 緊急度が「critical（最重要）」の場合は天気に関わらず購入する（予算内であれば）
-- 快晴・晴れで緊急度が低い場合、無料データで十分
-- 緊急度が高い場合、プレミアムデータは価値がある
-- 雨天かつ緊急度が中・高の場合は購入する
-- 嵐・竜巻の場合は緊急度に関わらず必ず購入する（安全確保のため詳細情報が必須）
+条件：予算を超える支払いはできません。それ以外はあなたの判断に委ねます。
 
 JSONのみで回答し、他のテキストは一切含めないこと：
 {"buy": true, "reason": "日本語で簡潔な理由"}`;
