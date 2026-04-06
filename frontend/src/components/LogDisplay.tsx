@@ -5,8 +5,7 @@ interface Props {
 const colorMap: Record<string, string> = {
   '[Agent]': '#f0c040',
   '[Claude]': '#a78bfa',
-  '[Free API]': '#60a5fa',
-  '[API]': '#f87171',
+  '[Provider]': '#34d399',
   '[Error]': '#f05040',
 };
 
