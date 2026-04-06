@@ -16,14 +16,12 @@ fi
 # Provider .env セットアップ
 PROVIDER_ENV="$DIR/provider/.env"
 if [ ! -f "$PROVIDER_ENV" ] || grep -q "your_" "$PROVIDER_ENV" 2>/dev/null; then
-  echo "🏪 [Provider] APIキーとウォレット情報を入力してください。"
+  echo "🏪 [Provider] ウォレット情報を入力してください。"
   echo ""
   read -p "Provider: 受取ウォレット アドレス (0x...): " EVM_ADDRESS
-  read -p "Provider: Anthropic API Key: " PROVIDER_ANTHROPIC_KEY
   echo ""
   cat > "$PROVIDER_ENV" << EOF
 EVM_ADDRESS=$EVM_ADDRESS
-ANTHROPIC_API_KEY=$PROVIDER_ANTHROPIC_KEY
 FACILITATOR_URL=https://x402.org/facilitator
 PORT=3001
 EOF
