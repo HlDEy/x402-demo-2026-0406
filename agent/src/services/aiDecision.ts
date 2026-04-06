@@ -28,7 +28,7 @@ export async function decideWithClaude(input: DecisionInput): Promise<DecisionOu
 
 判断基準：
 - stormy・tornado などの異常気象は緊急度に関わらず購入する
-- rainy は緊急度が medium 以上なら購入を検討する（low なら不要）
+- rainy は緊急度が high 以上なら購入する（low・medium なら不要）
 - cloudy・sunny・clear は緊急度が high 以上でないと購入不要
 - 予算を超える支払いは絶対にしない
 
