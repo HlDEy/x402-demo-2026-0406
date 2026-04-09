@@ -5,12 +5,18 @@ import { ExactEvmScheme } from '@x402/evm/exact/client';
 import { decideWithClaude } from '../services/aiDecision';
 import { getUsdcBalance } from '../services/walletBalance';
 
-export const PREMIUM_PRICE = 0.01;
-
 const router = Router();
 
-router.get('/price', (_req: Request, res: Response) => {
-  res.json({ price: PREMIUM_PRICE });
+router.get('/price', async (_req: Request, res: Response) => {
+  const PROVIDER_URL = process.env.PROVIDER_URL || 'http://localhost:3001';
+  try {
+    const r = await fetch(`${PROVIDER_URL}/weather/price`);
+    const data = await r.json();
+    res.json(data);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    res.status(500).json({ error: msg });
+  }
 });
 
 router.get('/balance', async (_req: Request, res: Response) => {
@@ -31,13 +37,19 @@ router.post('/run', async (req: Request, res: Response) => {
     overridePrice,
   } = req.body;
 
-  const priceForClaude = overridePrice ?? PREMIUM_PRICE;
   const PROVIDER_URL = process.env.PROVIDER_URL || 'http://localhost:3001';
 
   const logs: string[] = [];
   const log = (msg: string) => { console.log(msg); logs.push(msg); };
 
   try {
+    // Step 0: Provider から価格を取得
+    log('[Agent] Fetching price from Provider...');
+    const priceRes = await fetch(`${PROVIDER_URL}/weather/price`);
+    const { price: fetchedPrice } = await priceRes.json();
+    const priceForClaude = overridePrice ?? fetchedPrice;
+    log(`[Provider] Price: ${fetchedPrice} USDC`);
+
     // Step 1: Provider の無料天気を取得
     log('[Agent] Fetching free weather from Provider...');
     const freeRes = await fetch(`${PROVIDER_URL}/weather/free?location=${encodeURIComponent(location)}`);

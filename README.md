@@ -69,8 +69,16 @@ cp agent/.env.example agent/.env
 
 ### 5. 起動
 
+**初回（.env セットアップ込み）：**
+
 ```bash
 bash start.sh
+```
+
+**2回目以降（.env 設定済みの場合）：**
+
+```bash
+bash dev.sh
 ```
 
 3つのターミナルが自動で開き、ブラウザが起動します。

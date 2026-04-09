@@ -5,6 +5,7 @@ import { paymentMiddleware, x402ResourceServer } from '@x402/express';
 import { ExactEvmScheme } from '@x402/evm/exact/server';
 import { HTTPFacilitatorClient } from '@x402/core/server';
 import weatherRouter from './routes/weather';
+import { PREMIUM_PRICE } from './config';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -30,7 +31,7 @@ app.use(
         accepts: [
           {
             scheme: 'exact',
-            price: '$0.01',
+            price: `$${PREMIUM_PRICE}`,
             network: 'eip155:84532', // Base Sepolia
             payTo: EVM_ADDRESS,
           },
